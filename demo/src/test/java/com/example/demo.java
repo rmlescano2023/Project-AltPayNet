@@ -17,7 +17,7 @@ public class demo {
     public WebDriver driver;    /* driver is the Chrome, gagamitin na browser for testing */
     public WebDriverWait wait;
 
-    /* @Test (priority = 0)    // declare this method as the first priority of testing, with priority = 0
+    @Test (priority = 0)    // declare this method as the first priority of testing, with priority = 0
     public void testFirst() {
         System.getProperty("webdriver.chrome.driver", "D:\\Documents\\[UP DOCUMENTS]\\[INTERNSHIP]\\AltPayNet\\chromedriver_win32\\chromedriver.exe");
         driver = new ChromeDriver();
@@ -61,12 +61,13 @@ public class demo {
         password.sendKeys("Br@veheart1");
         
         //driver.quit();
-    } */
+    }
 
     @Test (priority = 4)    // declare this method as the first priority of testing, with priority = 0
     public void testThird() {
         System.getProperty("webdriver.chrome.driver", "D:\\Documents\\[UP DOCUMENTS]\\[INTERNSHIP]\\AltPayNet\\chromedriver_win32\\chromedriver.exe");
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.get("https://demoqa.com/automation-practice-form"); // i-aaccess nya yung url
     }
     
