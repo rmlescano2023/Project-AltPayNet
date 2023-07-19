@@ -100,18 +100,18 @@ public class demo {
         WebElement hobbies = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[contains(text(),'Sports')]")));
         WebElement pictureBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='uploadPicture']")));
         WebElement address = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@id='currentAddress']")));
-        WebElement selectState = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Select State')]")));
-        WebElement stateNCR = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'NCR')]")));
+        // WebElement selectState = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Select State')]")));
+        // WebElement stateNCR = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'NCR')]")));
         
         subjects.sendKeys("CMSC195, CMSC192");
         hobbies.click();
         pictureBtn.sendKeys("D:\\Desktop\\Project - AltPayNet\\sample.jpg");
         address.sendKeys("St. Francis Nature Villages, Barangay 5");
-        selectState.click();
-        stateNCR.sendKeys("NCR");
+        // selectState.click();
+        // stateNCR.sendKeys("NCR");
 
 
-
+        // test changes
 
     }
 }
