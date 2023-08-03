@@ -58,7 +58,7 @@ public class TLPE {
         elements.loginBtn.click();
         String prompt = elements.blankError.getText();
         
-        test.log(
+        test.log(       
             prompt.contains(elements.errorMessage1) ? Status.PASS : Status.FAIL,
             prompt.contains(elements.errorMessage1) ? "Error prompt \"This is required.\" is visible" : "Error prompt \"This is required.\" is not visible"
         );
