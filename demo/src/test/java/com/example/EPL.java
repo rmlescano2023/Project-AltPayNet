@@ -70,17 +70,8 @@ public class EPL {
         }
     }
 
-    @Test (priority = 1)
-    public void TLPEAPI_OPP_02() {
-        driver.get(URL_EPL);
-
-        ExtentTest test = extent.createTest("TLPEAPI_OPP_02 - Successful transaction due to correct inputs on all fields in Transaction Details page");
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
-        test.log(
-            elements.amount.isDisplayed() ? Status.PASS : Status.FAIL,
-            elements.amount.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not accessible"
-        );
+    // Happy Path Functions -----------------------------------------------------------------------------------------------------------------------------------------
+    public void transactionDetailsPageHappyPath() {
 
         elements.amount.sendKeys("500000"); // This is 5,000 pesos since the field accounts for the two decimal values
         elements.currencyDropdown.click();
@@ -104,6 +95,22 @@ public class EPL {
         elements.stateProvinceRegion.sendKeys("Negros Occidental");
         elements.countryDropdown.click();
         elements.countryField.sendKeys("PH - Philippines", Keys.ENTER);
+    }
+
+    @Test (priority = 1)
+    public void TLPEAPI_OPP_02() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_02 - Successful transaction due to correct inputs on all fields in Transaction Details page");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        test.log(
+            elements.amount.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.amount.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not accessible"
+        );
+
+        transactionDetailsPageHappyPath();
+
         elements.nextBtn.click();
     }
 
