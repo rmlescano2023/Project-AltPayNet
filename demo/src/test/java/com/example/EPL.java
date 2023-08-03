@@ -105,6 +105,7 @@ public class EPL {
 
         elements.nextBtn.click();
         
+        // Check if error prompts are visible
         for (int i = 0; i < elements.errorList.size(); i++) {
             test.log(
                 elements.errorList.get(i).isDisplayed() ? Status.PASS : Status.FAIL,
@@ -127,6 +128,24 @@ public class EPL {
             elements.amount.isDisplayed() ? Status.PASS : Status.FAIL,
             elements.amount.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not accessible"
         );
+
+        // Check if all Transaction Page WebElements are visible except: Currency field, Card option, VISA button, and Country field
+        for (int i = 0; i < elements.transactionPageWebElements.size(); i++) {
+            if (elements.transactionPageWebElements.get(i) != elements.currencyField || 
+                elements.transactionPageWebElements.get(i) != elements.cardOptionBtn ||
+                elements.transactionPageWebElements.get(i) != elements.visaBtn ||
+                elements.transactionPageWebElements.get(i) != elements.countryField) 
+            {
+                test.log(
+                    elements.transactionPageWebElements.get(i).isDisplayed() ? Status.PASS : Status.FAIL,
+                    elements.transactionPageWebElements.get(i).isDisplayed() ? "The " + elements.transactionPageWebElementNames.get(i) + " is visible" : "The " + elements.transactionPageWebElementNames.get(i) + " is not visible"
+                );
+            }
+            else {
+                continue;
+            }
+
+        }
 
         // Actual test
         transactionDetailsPageHappyPath();

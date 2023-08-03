@@ -18,9 +18,66 @@ public class EPLElements {
         this.driver = driver;
         PageFactory.initElements(driver, this); 
 
+        // Transaction Page WebElements
+        transactionPageWebElements.add(amount);
+        transactionPageWebElements.add(currencyDropdown);
+        transactionPageWebElements.add(currencyField);              // Not included in initial access of the website
+        transactionPageWebElements.add(paymentDescription);
+        transactionPageWebElements.add(cardOptionBtn);              // Not included in initial access of the website
+        transactionPageWebElements.add(visaBtn);                    // Not included in initial access of the website
+        transactionPageWebElements.add(firstName);
+        transactionPageWebElements.add(lastName);
+        transactionPageWebElements.add(emailAddress);
+        transactionPageWebElements.add(mobileNumberCountryCode);
+        transactionPageWebElements.add(mobileNumber);
+        transactionPageWebElements.add(addressLine1);
+        transactionPageWebElements.add(addressLine2);
+        transactionPageWebElements.add(cityMunicipalityLocality);
+        transactionPageWebElements.add(zipCode);
+        transactionPageWebElements.add(stateProvinceRegion);
+        transactionPageWebElements.add(countryDropdown);
+        transactionPageWebElements.add(countryField);               // Not included in initial access of the website
+        transactionPageWebElements.add(nextBtn);
+
+        transactionPageWebElementNames.add(amountFieldElementName);
+        transactionPageWebElementNames.add(currencyDropdownElementName);
+        transactionPageWebElementNames.add(currencyFieldElementName);
+        transactionPageWebElementNames.add(paymentDescriptionElementName);
+        transactionPageWebElementNames.add(cardOptionBtnelementName);
+        transactionPageWebElementNames.add(visaBtnElementName);
+        transactionPageWebElementNames.add(firstNameElementName);
+        transactionPageWebElementNames.add(lastNameElementName);
+        transactionPageWebElementNames.add(emailAddressElementName);
+        transactionPageWebElementNames.add(mobileNumberCountryCodeElementName);
+        transactionPageWebElementNames.add(mobileNumberElementName);
+        transactionPageWebElementNames.add(addressLine1ElementName);
+        transactionPageWebElementNames.add(addressLine2ElementName);
+        transactionPageWebElementNames.add(cityMunicipalityLocalityElementName);
+        transactionPageWebElementNames.add(zipCodeElementName);
+        transactionPageWebElementNames.add(stateProvinceRegionElementName);
+        transactionPageWebElementNames.add(countryDropdownElementName);
+        transactionPageWebElementNames.add(countryFieldElementName);
+        transactionPageWebElementNames.add(nextBtnElementName);
+        
+        
+        // Confirm Payment Page WebElements
+        confirmPaymentPageWebElements.add(cardNumber);
+        confirmPaymentPageWebElements.add(cardholderName);
+        confirmPaymentPageWebElements.add(expiryDate);
+        confirmPaymentPageWebElements.add(CVV);
+        confirmPaymentPageWebElements.add(submitPaymentBtn);
+
+        confirmPaymentPageWebElementNames.add(cardNumberElementName);
+        confirmPaymentPageWebElementNames.add(cardholderNameElementName);
+        confirmPaymentPageWebElementNames.add(expiryDateElementName);
+        confirmPaymentPageWebElementNames.add(CVVElementName);
+        confirmPaymentPageWebElementNames.add(submitPaymentBtnElementName);
+        
+
+        // Errors
         errorList.add(paymentCurrencyError);
         errorList.add(paymentDescriptionError);
-        errorList.add(paymentOptionError);
+        errorList.add(cardOptionError);
         errorList.add(firstNameError);
         errorList.add(lastNameError);
         errorList.add(emailAddressError);
@@ -28,15 +85,23 @@ public class EPLElements {
 
         errorNames.add(paymentCurrencyErrorName);
         errorNames.add(paymentDescriptionErrorName);
-        errorNames.add(paymentOptionErrorName);
+        errorNames.add(cardOptionErrorName);
         errorNames.add(firstNameErrorName);
         errorNames.add(lastNameErrorName);
         errorNames.add(emailAddressErrorName);
         errorNames.add(mobileNumberErrorName);        
     }
 
+    // List of objects
+    List<WebElement> transactionPageWebElements = new ArrayList<>();
+    List<String> transactionPageWebElementNames = new ArrayList<>();
+
+    List<WebElement> confirmPaymentPageWebElements = new ArrayList<>();
+    List<String> confirmPaymentPageWebElementNames = new ArrayList<>();
+
     List<WebElement> errorList = new ArrayList<>();
     List<String> errorNames = new ArrayList<>();
+
 
     // Text fields
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/input[1]")
@@ -160,8 +225,8 @@ public class EPLElements {
     String paymentDescriptionErrorName = "Payment Description field";
     
     @FindBy(xpath = "//div[@id='paymentoption-error']")
-    public WebElement paymentOptionError;
-    String paymentOptionErrorName = "Payment Option field";
+    public WebElement cardOptionError;
+    String cardOptionErrorName = "Payment Option field";
     
     @FindBy(xpath = "//label[@id='customer.firstName-error']")
     public WebElement firstNameError;
