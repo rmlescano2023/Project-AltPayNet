@@ -48,7 +48,9 @@ public class EPL {
         elements = new EPLElements(driver);
     }
 
-    // Essential Functions ----------------------------------------------------------------------------------------------------------------------------------------- START
+    // ESSENTIAL FUNCTIONS ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    // Happy Path for Transaction Details page
     public void transactionDetailsPageHappyPath() {
 
         // wait = new WebDriverWait(driver, Duration.ofSeconds(20));    // Test out if this is necessary to be included in this function
@@ -77,6 +79,7 @@ public class EPL {
         elements.countryField.sendKeys("PH - Philippines", Keys.ENTER);
     }
 
+    // Happy Path for Confirm Payment page
     public void confirmPaymentPageHappyPath() {
 
         // wait = new WebDriverWait(driver, Duration.ofSeconds(20));    // Test out if this is necessary to be included in this function
@@ -87,25 +90,63 @@ public class EPL {
         elements.CVV.sendKeys("123");
     }
 
-    // Create a function containing ang error checker, looping through all errors in the Error List, and returns the index of that error if it is visible
-    // ...
+    // Check if Transaction Page is accessible
+    public void transactionDetailsPageAccessibility(ExtentTest test) {
 
-    // Essential Functions ----------------------------------------------------------------------------------------------------------------------------------------- END
+        test.log(
+            elements.amount.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.amount.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not visible"
+        );
+    }
 
+    // Check if all Transaction Page WebElements are visible except: Currency field, Card option, VISA button, and Country field
+    public void transactionDetailsPageWebElementsVisibility(ExtentTest test) {
+
+        for (int i = 0; i < elements.transactionPageWebElements.size(); i++) {
+            if (elements.transactionPageWebElements.get(i) != elements.currencyField || 
+                elements.transactionPageWebElements.get(i) != elements.cardOptionBtn ||
+                elements.transactionPageWebElements.get(i) != elements.visaBtn ||
+                elements.transactionPageWebElements.get(i) != elements.countryField) 
+            {
+                test.log(
+                    elements.transactionPageWebElements.get(i).isDisplayed() ? Status.PASS : Status.FAIL,
+                    elements.transactionPageWebElements.get(i).isDisplayed() ? "The " + elements.transactionPageWebElementNames.get(i) + " is visible" : "The " + elements.transactionPageWebElementNames.get(i) + " is not visible"
+                );
+            }
+            else {  continue;   }
+        }
+    }
+
+    // Check if there are any existing error on the current page
+    public boolean errorChecker(ExtentTest test) {
+
+        boolean existingError = false;
+
+        for (int i = 0; i < elements.errorList.size(); i++) {
+            if (elements.errorList.get(i).isDisplayed()) {
+                test.log(Status.FAIL, "Error in " + elements.errorNames.get(i) + " is visible");
+                existingError = true;
+            }
+        }
+
+        return existingError;
+    }
+
+
+    // TEST CASES ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
     @Test (priority = 0)
     public void TLPEAPI_OPP_01() {
         driver.get(URL_EPL);
 
         ExtentTest test = extent.createTest("TLPEAPI_OPP_01 - Unsuccessful transaction due to empty required fields");
 
-        test.log(
-            elements.amount.isDisplayed() ? Status.PASS : Status.FAIL,
-            elements.amount.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not visible"
-        );
+        // Call this function to check if the Transaction Details page is accessible
+        transactionDetailsPageAccessibility(test);
 
+        // Actual test
         elements.nextBtn.click();
         
-        // Check if error prompts are visible
+        // Check if error prompts are visible (PASS if error is visible)
         for (int i = 0; i < elements.errorList.size(); i++) {
             test.log(
                 elements.errorList.get(i).isDisplayed() ? Status.PASS : Status.FAIL,
@@ -123,44 +164,18 @@ public class EPL {
         ExtentTest test = extent.createTest("TLPEAPI_OPP_02 - Successful transaction due to correct inputs on all fields in Transaction Details page");
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
-        // Check if Transaction Details page is accessible
-        test.log(
-            elements.amount.isDisplayed() ? Status.PASS : Status.FAIL,
-            elements.amount.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not accessible"
-        );
+        // Call this function to check if the Transaction Details page is accessible
+        transactionDetailsPageAccessibility(test);
 
-        // Check if all Transaction Page WebElements are visible except: Currency field, Card option, VISA button, and Country field
-        for (int i = 0; i < elements.transactionPageWebElements.size(); i++) {
-            if (elements.transactionPageWebElements.get(i) != elements.currencyField || 
-                elements.transactionPageWebElements.get(i) != elements.cardOptionBtn ||
-                elements.transactionPageWebElements.get(i) != elements.visaBtn ||
-                elements.transactionPageWebElements.get(i) != elements.countryField) 
-            {
-                test.log(
-                    elements.transactionPageWebElements.get(i).isDisplayed() ? Status.PASS : Status.FAIL,
-                    elements.transactionPageWebElements.get(i).isDisplayed() ? "The " + elements.transactionPageWebElementNames.get(i) + " is visible" : "The " + elements.transactionPageWebElementNames.get(i) + " is not visible"
-                );
-            }
-            else {
-                continue;
-            }
-
-        }
+        // Call this function to check if all Transaction Page WebElements are visible except: Currency field, Card option, VISA button, and Country field
+        transactionDetailsPageWebElementsVisibility(test);
 
         // Actual test
         transactionDetailsPageHappyPath();
         elements.nextBtn.click();
 
         // Check if there are any errors from the required fields
-        boolean existingError = false;
-        for (int i = 0; i < elements.errorList.size(); i++) {
-            if (elements.errorList.get(i).isDisplayed()) {
-                test.log(Status.FAIL, "Error in " + elements.errorNames.get(i) + " is visible");
-                existingError = true;
-            } else {
-                test.log(Status.PASS, "Error " + elements.errorNames.get(i) + " is not visible");
-            }
-        }
+        boolean existingError = errorChecker(test);
 
         // Check if redirection to the Confirm Payment page is successful
         if (existingError == false) {
