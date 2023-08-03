@@ -49,12 +49,11 @@ public class EPL {
         elements = new EPLElements(driver);
     }
 
-    /* @Test (priority = 0)
+    @Test (priority = 0)
     public void TLPEAPI_OPP_01() {
         driver.get(URL_EPL);
 
         ExtentTest test = extent.createTest("TLPEAPI_OPP_01 - Unsuccessful transaction due to empty required fields");
-        // wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         test.log(
             elements.amount.isDisplayed() ? Status.PASS : Status.FAIL,
@@ -69,40 +68,173 @@ public class EPL {
                 elements.errorList.get(i).isDisplayed() ? "Error in " + elements.errorNames.get(i) + " is visible" : "Error " + elements.errorNames.get(i) + " is not visible"
             );
         }
-    } */
+    }
 
     @Test (priority = 1)
     public void TLPEAPI_OPP_02() {
         driver.get(URL_EPL);
 
-        ExtentTest test = extent.createTest("TLPEAPI_OPP_02 - Successful transaction due to correct inputs on all fields");
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_02 - Successful transaction due to correct inputs on all fields in Transaction Details page");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         test.log(
             elements.amount.isDisplayed() ? Status.PASS : Status.FAIL,
-            elements.amount.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not visible"
+            elements.amount.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not accessible"
         );
 
         elements.amount.sendKeys("500000"); // This is 5,000 pesos since the field accounts for the two decimal values
-        
         elements.currencyDropdown.click();
         elements.currencyField.sendKeys("PHP - Philippine Peso", Keys.ENTER);
-        
         elements.paymentDescription.sendKeys("TEST");
-
         elements.cardOptionBtn.click();
-        
-        wait.until(ExpectedConditions.visibilityOf(elements.visaBtn));
-        elements.visaBtn.click();
 
+        wait.until(ExpectedConditions.visibilityOf(elements.visaBtn));
+
+        elements.visaBtn.click();
         elements.firstName.sendKeys("Renmar");
         elements.lastName.sendKeys("Lescano");
         elements.emailAddress.sendKeys("renmar.lescano@altpaynet.com");
-
         elements.mobileNumberCountryCode.click();
-        elements.mobileNumberCountryCode.sendKeys("+63", Keys.ENTER);
+        elements.countryCodePH.click();
+        elements.mobileNumber.sendKeys("9455179898");
+        elements.addressLine1.sendKeys("TEST");
+        elements.addressLine2.sendKeys("TEST");
+        elements.cityMunicipalityLocality.sendKeys("Silay City");
+        elements.zipCode.sendKeys("6116");
+        elements.stateProvinceRegion.sendKeys("Negros Occidental");
+        elements.countryDropdown.click();
+        elements.countryField.sendKeys("PH - Philippines", Keys.ENTER);
+        elements.nextBtn.click();
     }
-    
+
+    @Test (priority = 2)
+    public void TLPEAPI_OPP_03() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_03 - Successful transaction due to correct inputs on all fields in Confirm Payment page");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        TLPEAPI_OPP_02();   // Call function TLPEAPI_OPP_02 to input all correct values on the Transaction Details page so we can proceed to the Confirm Payment page
+
+        test.log(
+            elements.cardNumber.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.cardNumber.isDisplayed() ? "Confirm Payment page is accessible" : "Confirm Payment page is not accessible"
+        );
+
+        elements.cardNumber.sendKeys("4111111111111111");
+        elements.cardholderName.sendKeys("Renmar Lescano");
+        elements.expiryDate.sendKeys("1226");
+        elements.CVV.sendKeys("123");
+        elements.submitPaymentBtn.click();
+
+
+        // Payment Receipt page
+        test.log(
+            elements.authenticationDropdown.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.authenticationDropdown.isDisplayed() ? "Payment Receipt page is accessible" : "Payment Receipt page is not accessible"
+        );
+
+        elements.submitAuthenticationBtn.click();
+
+        
+        // Payment Result page
+        wait.until(ExpectedConditions.visibilityOf(elements.paymentResult));
+        test.log(
+            elements.paymentResult.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.paymentResult.isDisplayed() ? "Payment Result page is visible" : "Payment Result page is not visible"
+        );
+    }
+
+    @Test (priority = 3)
+    public void TLPEAPI_OPP_04() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_04 - Successful transaction due to correct inputs on all fields in 3DS Simulator page");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        TLPEAPI_OPP_02();   // Call function TLPEAPI_OPP_02 to input all correct values on the Transaction Details page so we can proceed to the Confirm Payment page
+        TLPEAPI_OPP_03();   // Call function TLPEAPI_OPP_03 to input all correct values on the Confirm Payment page so we can proceed to the 3DS Simulator page
+        
+        test.log(
+            elements.authenticationDropdown.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.authenticationDropdown.isDisplayed() ? "Payment Receipt page is accessible" : "Payment Receipt page is not accessible"
+        );
+
+        elements.submitAuthenticationBtn.click();
+        
+        // Payment Result page
+        wait.until(ExpectedConditions.visibilityOf(elements.paymentResult));
+        test.log(
+            elements.paymentResult.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.paymentResult.isDisplayed() ? "Payment Result page is visible" : "Payment Result page is not visible"
+        );
+    }
+
+    @Test (priority = 4)
+    public void TLPEAPI_OPP_05() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_03 - Validation testing on Amount field");
+        String testData = "aaaaa";
+
+        test.log(
+            elements.amount.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.amount.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not accessible"
+        );
+
+        TLPEAPI_OPP_02();   // Call function TLPEAPI_OPP_02 to input all correct values on the Transaction Details page
+
+        elements.amount.sendKeys(testData);
+        elements.amount.getText();
+        test.log(
+            elements.amount.getText().equals(testData) ? Status.FAIL : Status.PASS,
+            elements.amount.getText().equals(testData) ? "Amount field accepted non-numeric characters" : "Amount field did not accept non-numeric characters"
+        );
+    }
+
+    @Test (priority = 5)
+    public void TLPEAPI_OPP_06() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_04 - Validation testing on Description of Payment field");
+        String testData = "askdjaAKJSDN 12344 @#$%^";
+
+        test.log(
+            elements.paymentDescription.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.paymentDescription.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not accessible"
+        );
+
+        elements.paymentDescription.sendKeys(testData);
+        elements.paymentDescription.getText();
+        test.log(
+            elements.paymentDescription.getText().equals(testData) ? Status.PASS : Status.FAIL,
+            elements.paymentDescription.getText().equals(testData) ? "Payment Description field accepted alphanumeric and special characters" : "Payment Description field did not accept alphanumeric and special characters"
+        );
+    }
+
+    @Test (priority = 6)
+    public void TLPEAPI_OPP_07() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_05 - Validation testing on First Name and Last Name fields");
+        String testData1 = "TEST", testData2 = "0123", testData3 = "!@#$%";
+
+        test.log(
+            elements.firstName.isDisplayed() && elements.lastName.isDisplayed()? Status.PASS : Status.FAIL,
+            elements.firstName.isDisplayed() && elements.lastName.isDisplayed()? "First Name and Last Name fields are visible" : "First Name and Last Name fields are visible"
+        );
+
+        elements.firstName.sendKeys(testData1);
+        elements.lastName.sendKeys(testData1);
+        elements.firstName.getText();
+        elements.lastName.getText();
+        test.log(
+            elements.firstName.getText().equals(testData1) && elements.lastName.getText().equals(testData1)? Status.PASS : Status.FAIL,
+            elements.firstName.getText().equals(testData1) && elements.lastName.getText().equals(testData1)? "First Name and Last Name fields accepted alphabetic characters" : "First Name and Last Name fields did not accept alphabetic characters"
+        );
+
+        
+    }
 
     @AfterTest
     public void AT(){

@@ -42,7 +42,7 @@ public class EPLElements {
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/input[1]")
     public WebElement amount;
 
-    @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/input[1]")
+    @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[1]/div[1]/div[3]/div[1]/div[1]/input[1]")
     public WebElement paymentDescription;
 
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[1]/div[1]/input[1]")
@@ -71,6 +71,18 @@ public class EPLElements {
 
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[9]/div[1]/input[1]")
     public WebElement stateProvinceRegion;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/form[1]/div[1]/div[1]/div[2]/div[1]/input[1]")
+    public WebElement cardNumber;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/form[1]/div[1]/div[1]/div[3]/input[1]")
+    public WebElement cardholderName;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/form[1]/div[1]/div[1]/div[4]/div[1]/div[1]/input[1]")
+    public WebElement expiryDate;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/form[1]/div[1]/div[1]/div[4]/div[2]/div[1]/div[1]/input[1]")
+    public WebElement CVV;
     
 
     // Buttons
@@ -89,11 +101,27 @@ public class EPLElements {
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/div[2]")
     public WebElement mobileNumberCountryCode;
 
+    @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/ul[1]/li[173]")
+    public WebElement countryCodePH; // Philippines
+
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[10]/div[1]/span[2]/span[1]/span[1]/span[1]")
-    public WebElement country;
+    public WebElement countryDropdown;
+
+    @FindBy(xpath = "//body/span[1]/span[1]/span[1]/input[1]")
+    public WebElement countryField;
 
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[4]/div[1]/button[1]")
     public WebElement nextBtn;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/form[1]/div[2]/div[1]/button[1]")
+    public WebElement submitPaymentBtn;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[2]/form[1]/div[1]/select[1]")
+    public WebElement authenticationDropdown;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[2]/form[1]/button[1]")
+    public WebElement submitAuthenticationBtn;
+
 
     // Errors
     @FindBy(xpath = "//label[@id='payment.currency-error']")
@@ -123,5 +151,10 @@ public class EPLElements {
     @FindBy(xpath = "//label[@id='customer.contact.mobile-error']")
     public WebElement mobileNumberError;
     String mobileNumberErrorName = "Mobile Number field";
+
+
+    // Information Elements
+    @FindBy(xpath = "//body/div[1]/div[1]/div[1]/div[2]/div[3]")
+    public WebElement paymentResult;
     
 }
