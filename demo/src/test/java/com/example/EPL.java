@@ -40,7 +40,6 @@ public class EPL {
     public void SetUp() {
         extent.attachReporter(spark);
 
-
         System.getProperty("webdriver.chrome.driver", "D:\\Documents\\[UP DOCUMENTS]\\[INTERNSHIP]\\AltPayNet\\chromedriver_win32\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -49,29 +48,10 @@ public class EPL {
         elements = new EPLElements(driver);
     }
 
-    @Test (priority = 0)
-    public void TLPEAPI_OPP_01() {
-        driver.get(URL_EPL);
-
-        ExtentTest test = extent.createTest("TLPEAPI_OPP_01 - Unsuccessful transaction due to empty required fields");
-
-        test.log(
-            elements.amount.isDisplayed() ? Status.PASS : Status.FAIL,
-            elements.amount.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not visible"
-        );
-
-        elements.nextBtn.click();
-        
-        for (int i = 0; i < elements.errorList.size(); i++) {
-            test.log(
-                elements.errorList.get(i).isDisplayed() ? Status.PASS : Status.FAIL,
-                elements.errorList.get(i).isDisplayed() ? "Error in " + elements.errorNames.get(i) + " is visible" : "Error " + elements.errorNames.get(i) + " is not visible"
-            );
-        }
-    }
-
-    // Happy Path Functions -----------------------------------------------------------------------------------------------------------------------------------------
+    // Essential Functions ----------------------------------------------------------------------------------------------------------------------------------------- START
     public void transactionDetailsPageHappyPath() {
+
+        // wait = new WebDriverWait(driver, Duration.ofSeconds(20));    // Test out if this is necessary to be included in this function
 
         elements.amount.sendKeys("500000"); // This is 5,000 pesos since the field accounts for the two decimal values
         elements.currencyDropdown.click();
@@ -97,6 +77,44 @@ public class EPL {
         elements.countryField.sendKeys("PH - Philippines", Keys.ENTER);
     }
 
+    public void confirmPaymentPageHappyPath() {
+
+        // wait = new WebDriverWait(driver, Duration.ofSeconds(20));    // Test out if this is necessary to be included in this function
+
+        elements.cardNumber.sendKeys("4111111111111111");
+        elements.cardholderName.sendKeys("Renmar Lescano");
+        elements.expiryDate.sendKeys("1226");
+        elements.CVV.sendKeys("123");
+    }
+
+    // Create a function containing ang error checker, looping through all errors in the Error List, and returns the index of that error if it is visible
+    // ...
+
+    // Essential Functions ----------------------------------------------------------------------------------------------------------------------------------------- END
+
+    @Test (priority = 0)
+    public void TLPEAPI_OPP_01() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_01 - Unsuccessful transaction due to empty required fields");
+
+        test.log(
+            elements.amount.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.amount.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not visible"
+        );
+
+        elements.nextBtn.click();
+        
+        for (int i = 0; i < elements.errorList.size(); i++) {
+            test.log(
+                elements.errorList.get(i).isDisplayed() ? Status.PASS : Status.FAIL,
+                elements.errorList.get(i).isDisplayed() ? "Error in " + elements.errorNames.get(i) + " is visible" : "Error " + elements.errorNames.get(i) + " is not visible"
+            );
+        }
+
+        driver.quit();
+    }
+
     @Test (priority = 1)
     public void TLPEAPI_OPP_02() {
         driver.get(URL_EPL);
@@ -104,14 +122,36 @@ public class EPL {
         ExtentTest test = extent.createTest("TLPEAPI_OPP_02 - Successful transaction due to correct inputs on all fields in Transaction Details page");
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
+        // Check if Transaction Details page is accessible
         test.log(
             elements.amount.isDisplayed() ? Status.PASS : Status.FAIL,
             elements.amount.isDisplayed() ? "Transaction Details page is accessible" : "Transaction Details page is not accessible"
         );
 
+        // Actual test
         transactionDetailsPageHappyPath();
-
         elements.nextBtn.click();
+
+        // Check if there are any errors from the required fields
+        boolean existingError = false;
+        for (int i = 0; i < elements.errorList.size(); i++) {
+            if (elements.errorList.get(i).isDisplayed()) {
+                test.log(Status.FAIL, "Error in " + elements.errorNames.get(i) + " is visible");
+                existingError = true;
+            } else {
+                test.log(Status.PASS, "Error " + elements.errorNames.get(i) + " is not visible");
+            }
+        }
+
+        // Check if redirection to the Confirm Payment page is successful
+        if (existingError == false) {
+            test.log(
+                elements.cardNumber.isDisplayed() ? Status.PASS : Status.FAIL,
+                elements.cardNumber.isDisplayed() ? "Redirection to Confirm Payment page was successful" : "Redirection to Confirm Payment page was unsuccessful"
+            );
+        }
+        
+        driver.quit();
     }
 
     @Test (priority = 2)
@@ -121,34 +161,27 @@ public class EPL {
         ExtentTest test = extent.createTest("TLPEAPI_OPP_03 - Successful transaction due to correct inputs on all fields in Confirm Payment page");
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
-        TLPEAPI_OPP_02();   // Call function TLPEAPI_OPP_02 to input all correct values on the Transaction Details page so we can proceed to the Confirm Payment page
+        // Call this function to input all correct values on the Transaction Details page  so we can proceed to the Confirm Payment page
+        transactionDetailsPageHappyPath();
+        elements.nextBtn.click();
 
+        // Check if Confirm Payment page is accessible
         test.log(
             elements.cardNumber.isDisplayed() ? Status.PASS : Status.FAIL,
             elements.cardNumber.isDisplayed() ? "Confirm Payment page is accessible" : "Confirm Payment page is not accessible"
         );
 
+        // Actual test
         elements.cardNumber.sendKeys("4111111111111111");
         elements.cardholderName.sendKeys("Renmar Lescano");
         elements.expiryDate.sendKeys("1226");
         elements.CVV.sendKeys("123");
         elements.submitPaymentBtn.click();
 
-
-        // Payment Receipt page
+        // Check if 3DS Simulator page is visible
         test.log(
             elements.authenticationDropdown.isDisplayed() ? Status.PASS : Status.FAIL,
-            elements.authenticationDropdown.isDisplayed() ? "Payment Receipt page is accessible" : "Payment Receipt page is not accessible"
-        );
-
-        elements.submitAuthenticationBtn.click();
-
-        
-        // Payment Result page
-        wait.until(ExpectedConditions.visibilityOf(elements.paymentResult));
-        test.log(
-            elements.paymentResult.isDisplayed() ? Status.PASS : Status.FAIL,
-            elements.paymentResult.isDisplayed() ? "Payment Result page is visible" : "Payment Result page is not visible"
+            elements.authenticationDropdown.isDisplayed() ? "3DS Simulator page is visible" : "3DS Simulator page is not visible"
         );
     }
 
@@ -159,14 +192,19 @@ public class EPL {
         ExtentTest test = extent.createTest("TLPEAPI_OPP_04 - Successful transaction due to correct inputs on all fields in 3DS Simulator page");
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
-        TLPEAPI_OPP_02();   // Call function TLPEAPI_OPP_02 to input all correct values on the Transaction Details page so we can proceed to the Confirm Payment page
-        TLPEAPI_OPP_03();   // Call function TLPEAPI_OPP_03 to input all correct values on the Confirm Payment page so we can proceed to the 3DS Simulator page
-        
+        // Call these functions to input all correct values on the Transaction Details page and Confirm Payment page so we can proceed to the 3DS Simulator page
+        transactionDetailsPageHappyPath();
+        elements.nextBtn.click();
+        confirmPaymentPageHappyPath();
+        elements.submitPaymentBtn.click();
+
+        // Check if 3DS Simulator page is accessible
         test.log(
             elements.authenticationDropdown.isDisplayed() ? Status.PASS : Status.FAIL,
-            elements.authenticationDropdown.isDisplayed() ? "Payment Receipt page is accessible" : "Payment Receipt page is not accessible"
+            elements.authenticationDropdown.isDisplayed() ? "3DS Simulator page is accessible" : "3DS Simulator page is not accessible"
         );
 
+        // Actual test
         elements.submitAuthenticationBtn.click();
         
         // Payment Result page

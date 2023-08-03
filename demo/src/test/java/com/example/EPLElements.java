@@ -41,92 +41,119 @@ public class EPLElements {
     // Text fields
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/input[1]")
     public WebElement amount;
+    String amountFieldElementName = "Amount field";
 
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[1]/div[1]/div[3]/div[1]/div[1]/input[1]")
     public WebElement paymentDescription;
+    String paymentDescriptionElementName = "Description of Payment";
 
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[1]/div[1]/input[1]")
     public WebElement firstName;
+    String firstNameElementName = "First Name";
 
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[2]/div[1]/input[1]")
     public WebElement lastName;
+    String lastNameElementName = "Last Name";
 
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[3]/div[1]/input[1]")
     public WebElement emailAddress;
+    String emailAddressElementName = "Email Address";
 
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[4]/div[1]/div[1]/input[1]")
     public WebElement mobileNumber;
+    String mobileNumberElementName = "Mobile Number";
 
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[5]/div[1]/input[1]")
     public WebElement addressLine1;
+    String addressLine1ElementName = "Address Line 1";
 
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[6]/div[1]/input[1]")
     public WebElement addressLine2;
+    String addressLine2ElementName = "Address Line 2";
 
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[7]/div[1]/input[1]")
     public WebElement cityMunicipalityLocality;
+    String cityMunicipalityLocalityElementName = "City/Municipality/Locality";
 
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[8]/div[1]/input[1]")
     public WebElement zipCode;
+    String zipCodeElementName = "ZIP Code";
 
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[9]/div[1]/input[1]")
     public WebElement stateProvinceRegion;
+    String stateProvinceRegionElementName = "State/Province/Region";
 
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/form[1]/div[1]/div[1]/div[2]/div[1]/input[1]")
     public WebElement cardNumber;
+    String cardNumberElementName = "Card Number";
 
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/form[1]/div[1]/div[1]/div[3]/input[1]")
     public WebElement cardholderName;
+    String cardholderNameElementName = "Cardholder Name";
 
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/form[1]/div[1]/div[1]/div[4]/div[1]/div[1]/input[1]")
     public WebElement expiryDate;
+    String expiryDateElementName = "Expiry Date";
 
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/form[1]/div[1]/div[1]/div[4]/div[2]/div[1]/div[1]/input[1]")
     public WebElement CVV;
+    String CVVElementName = "CVV";
     
 
     // Buttons
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[1]/span[2]/span[1]/span[1]/span[2]")
     public WebElement currencyDropdown;
+    String currencyDropdownElementName = "Currency dropdown";
 
     @FindBy(xpath = "//body/span[1]/span[1]/span[1]/input[1]")
     public WebElement currencyField;
+    String currencyFieldElementName = "Currency field";
 
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[2]/div[1]/div[3]/div[1]/div[1]/div[1]/button[1]")
     public WebElement cardOptionBtn;
+    String cardOptionBtnelementName = "Card Option button";
 
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[2]/div[1]/div[4]/div[1]/div[1]/div[1]/div[2]/button[1]")
     public WebElement visaBtn;
+    String visaBtnElementName = "VISA button";
 
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/div[2]")
     public WebElement mobileNumberCountryCode;
+    String mobileNumberCountryCodeElementName = "Mobile Number Country Code dropdown";
 
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/ul[1]/li[173]")
     public WebElement countryCodePH; // Philippines
+    String countryCodePHElementName = "PH Country Code option";
 
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[10]/div[1]/span[2]/span[1]/span[1]/span[1]")
     public WebElement countryDropdown;
+    String countryDropdownElementName = "Country dropdown";
 
     @FindBy(xpath = "//body/span[1]/span[1]/span[1]/input[1]")
     public WebElement countryField;
+    String countryFieldElementName = "Country field";
 
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[4]/div[1]/button[1]")
     public WebElement nextBtn;
+    String nextBtnElementName = "Next button";
 
     @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/form[1]/div[2]/div[1]/button[1]")
     public WebElement submitPaymentBtn;
+    String submitPaymentBtnElementName = "Submit Payment button";
 
     @FindBy(xpath = "//body[1]/div[1]/div[2]/form[1]/div[1]/select[1]")
     public WebElement authenticationDropdown;
+    String authenticationDropdownElementName = "Authentication dropdown";
 
     @FindBy(xpath = "//body[1]/div[1]/div[2]/form[1]/button[1]")
     public WebElement submitAuthenticationBtn;
+    String submitAuthenticationBtnElementName = "Submit Authentication button";
 
 
     // Errors
     @FindBy(xpath = "//label[@id='payment.currency-error']")
     public WebElement paymentCurrencyError;
-    String paymentCurrencyErrorName = "Payment Currency dropbox";
+    String paymentCurrencyErrorName = "Payment Currency dropdown";
     
     @FindBy(xpath = "//label[@id='payment.description-error']")
     public WebElement paymentDescriptionError ;
