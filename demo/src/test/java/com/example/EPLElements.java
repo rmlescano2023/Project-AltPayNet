@@ -21,10 +21,10 @@ public class EPLElements {
         // Transaction Page WebElements
         transactionPageWebElements.add(amount);
         transactionPageWebElements.add(currencyDropdown);
-        transactionPageWebElements.add(currencyField);              // Not included in initial access of the website
+        // transactionPageWebElements.add(currencyField);              // Not included in initial access of the website
         transactionPageWebElements.add(paymentDescription);
-        transactionPageWebElements.add(cardOptionBtn);              // Not included in initial access of the website
-        transactionPageWebElements.add(visaBtn);                    // Not included in initial access of the website
+        // transactionPageWebElements.add(cardOptionBtn);              // Not included in initial access of the website
+        // transactionPageWebElements.add(visaBtn);                    // Not included in initial access of the website
         transactionPageWebElements.add(firstName);
         transactionPageWebElements.add(lastName);
         transactionPageWebElements.add(emailAddress);
@@ -36,7 +36,7 @@ public class EPLElements {
         transactionPageWebElements.add(zipCode);
         transactionPageWebElements.add(stateProvinceRegion);
         transactionPageWebElements.add(countryDropdown);
-        transactionPageWebElements.add(countryField);               // Not included in initial access of the website
+        // transactionPageWebElements.add(countryField);               // Not included in initial access of the website
         transactionPageWebElements.add(nextBtn);
 
         transactionPageWebElementNames.add(amountFieldElementName);
@@ -102,7 +102,7 @@ public class EPLElements {
     List<WebElement> errorList = new ArrayList<>();
     List<String> errorNames = new ArrayList<>();
 
-
+//body/span[1]/span[1]/span[1]/input[1]"}
     // Text fields
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/input[1]")
     public WebElement amount;
