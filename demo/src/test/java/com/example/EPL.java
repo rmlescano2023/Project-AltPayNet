@@ -18,14 +18,14 @@ import org.openqa.selenium.NoSuchElementException;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.Assert;
-/* import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test; */
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class EPL {
 
@@ -51,6 +51,7 @@ public class EPL {
         elements = new EPLElements(driver);
     }
 
+    
     // ESSENTIAL FUNCTIONS ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     // Happy Path for Transaction Details page
@@ -60,20 +61,17 @@ public class EPL {
 
         elements.amount.sendKeys("500000"); // This is 5,000 pesos since the field accounts for the two decimal values
         elements.currencyDropdown.click();
-
         wait.until(ExpectedConditions.visibilityOf(elements.currencyField));
-
         elements.currencyField.sendKeys("PHP - Philippine Peso", Keys.ENTER);
         elements.paymentDescription.sendKeys("TEST");
         elements.cardOptionBtn.click();
-
         wait.until(ExpectedConditions.visibilityOf(elements.visaBtn));
-
         elements.visaBtn.click();
         elements.firstName.sendKeys("Renmar");
         elements.lastName.sendKeys("Lescano");
         elements.emailAddress.sendKeys("renmar.lescano@altpaynet.com");
         elements.mobileNumberCountryCode.click();
+        wait.until(ExpectedConditions.visibilityOf(elements.countryCodePH));
         elements.countryCodePH.click();
         elements.mobileNumber.sendKeys("9455179898");
         elements.addressLine1.sendKeys("TEST");
@@ -155,9 +153,8 @@ public class EPL {
     }
     
 
-
     // TEST CASES ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
-    /* @Test (priority = 0)    // OK
+    /* @Test (priority = 1)     // OK
     public void TLPEAPI_OPP_01() {
         driver.get(URL_EPL);
 
@@ -177,9 +174,9 @@ public class EPL {
                 elements.errorList.get(i).isDisplayed() ? "Error in " + elements.errorNames.get(i) + " is visible" : "Error " + elements.errorNames.get(i) + " is not visible"
             );
         }
-    }
+    } */
 
-    @Test (priority = 1)    // OK
+    /* @Test (priority = 2)     // OK
     public void TLPEAPI_OPP_02() {
         driver.get(URL_EPL);
 
@@ -206,9 +203,9 @@ public class EPL {
                 elements.cardNumber.isDisplayed() ? "Redirection to Confirm Payment page was successful" : "Redirection to Confirm Payment page was unsuccessful"
             );
         }        
-    }
+    } */
 
-    @Test (priority = 2)    // OK
+    /* @Test (priority = 3)     // OK
     public void TLPEAPI_OPP_03() {
         driver.get(URL_EPL);
 
@@ -234,9 +231,9 @@ public class EPL {
             elements.authenticationDropdown.isDisplayed() ? Status.PASS : Status.FAIL,
             elements.authenticationDropdown.isDisplayed() ? "Redirection to 3DS Simulator page was successful" : "Redirection to 3DS Simulator page was unsuccessful"
         );
-    }
+    } */
 
-    @Test (priority = 3)    // OK
+    /* @Test (priority = 4)     // OK
     public void TLPEAPI_OPP_04() {
         driver.get(URL_EPL);
 
@@ -264,9 +261,9 @@ public class EPL {
             elements.paymentResult.isDisplayed() ? Status.PASS : Status.FAIL,
             elements.paymentResult.isDisplayed() ? "Payment Result page is visible" : "Payment Result page is not visible"
         );
-    }
+    } */
 
-    @Test (priority = 4)    // OK
+    /* @Test (priority = 5)     // OK
     public void TLPEAPI_OPP_05() {
         driver.get(URL_EPL);
 
@@ -290,9 +287,9 @@ public class EPL {
                 elements.amount.getText().equals(testDataArray[i]) ? "Amount field accepted " + testDataCharacterTypeArray[i] : "Amount field did not accept " + testDataCharacterTypeArray[i]
             );
         }
-    }
+    } */
 
-    @Test (priority = 5)    // OK
+    /* @Test (priority = 6)     // OK
     public void TLPEAPI_OPP_06() {
         driver.get(URL_EPL);
 
@@ -322,9 +319,9 @@ public class EPL {
             elements.cardOptionError.isDisplayed() ? Status.PASS : Status.FAIL,
             elements.cardOptionError.isDisplayed() ? "Error prompt on selecting ADP - Andorran Peseta currency is visible" : "Error prompt on selecting ADP - Andorran Peseta currency is visible"
         );
-    }
+    } */
 
-    @Test (priority = 6)    // OK
+    /* @Test (priority = 7)     // OK
     public void TLPEAPI_OPP_07() {
         driver.get(URL_EPL);
 
@@ -332,7 +329,7 @@ public class EPL {
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         // String array for test data of alphabetic, numeric, and special characters
-        String[] testDataArray = {"askdjaAKJSDN", "012345", "!@#$%"};
+        String[] testDataArray = {"askdjaAKJSDN", "012345", "!@#$%^&*(){}[]'',.<>/?;:"};
         String[] testDataCharacterTypeArray = {"Alphabetic characters", "Numeric characters", "Special characters"};
 
         // Call this function to check if the Transaction Details page is accessible
@@ -359,7 +356,7 @@ public class EPL {
         }
     } */
 
-    /* @Test (priority = 7)     // UNFINISHED
+    /* @Test (priority = 8)     // GCash Test UNFINISHED
     public void TLPEAPI_OPP_08() {
         driver.get(URL_EPL);
 
@@ -448,7 +445,7 @@ public class EPL {
 
     } */
 
-    /* @Test (priority = 8)    // OK
+    /* @Test (priority = 9)     // OK
     public void TLPEAPI_OPP_09() {
         driver.get(URL_EPL);
 
@@ -456,7 +453,7 @@ public class EPL {
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         // String array for test data of alphabetic, numeric, and special characters
-        String[] testDataArray = {"012345", "!@#$%"};
+        String[] testDataArray = {"012345", "!@#$%^&*(){}[]'',.<>/?;:"};
         String[] testDataCharacterTypeArray = {"Numeric characters", "Special characters"};
 
         // Call this function to check if the Transaction Details page is accessible
@@ -495,21 +492,490 @@ public class EPL {
         }
     } */
 
-    /* @Test (priority = 9)
+    /* @Test (priority = 10)    // OK
     public void TLPEAPI_OPP_10() {
         driver.get(URL_EPL);
 
-        ExtentTest test = extent.createTest("TLPEAPI_OPP_10 - Validation testing on the Email field");
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_10 - Validation testing on the Email field by forcing invalid values");
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
+        // Test Data (correct): renmar.lescano@altpaynet.com
         String[] testDataArray = {
-            ""
+            ".renmar.lescano@altpaynet.com",
+            "renmar.lescano.@altpaynet.com",
+            "_renmar.lescano@altpaynet.com",
+            "renmar.lescano_@altpaynet.com",
+            "-renmar.lescano@altpaynet.com",
+            "renmar.lescano-@altpaynet.com",
+            "+renmar.lescano@altpaynet.com",
+            "renmar.lescano+@altpaynet.com",
+            "renmar.lescano@.altpaynet.com",
+            "renmar.lescano@altpaynet.com.",
+            "renmar.lescano@altpaynet..com"
         };
+        String[] testDataValidationNameArray = {
+            "The Local part should not begin with a dot",
+            "The Local part should not end with a dot",
+            "The Local part should not begin with an underscore",
+            "The Local part should not end with an underscore",
+            "The Local part should not begin with a hyphen",
+            "The Local part should not end with a hyphen",
+            "The Local part should not begin with a plus sign",
+            "The Local part should not end with a plus sign",
+            "The Domain part should not begin with a dot",
+            "The Domain part should not end with a dot",
+            "The Domain part should not contain consecutive dots"
+        };
+
+        // Call this function to check if the Transaction Details page is accessible
+        transactionDetailsPageAccessibility(test);
+
+        // Check if the Email Address field is visible
+        test.log(
+            elements.emailAddress.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.emailAddress.isDisplayed() ? "Email Address field is visible" : "Email Address field is not visible"
+        );
+
+        // Actual Test
+        for (int i = 0; i < testDataArray.length; i++) {
+
+            // Call this function to input all correct values on the Transaction Details page
+            transactionDetailsPageHappyPath();
+            elements.emailAddress.clear();
+
+            // Actual Test
+            elements.emailAddress.sendKeys(testDataArray[i]);
+            elements.nextBtn.click();
+
+            // Check if error message is shown
+            try {
+                test.log(
+                    elements.emailAddressError.isDisplayed() ? Status.PASS : Status.FAIL,
+                    elements.emailAddressError.isDisplayed() ? "Email Address error FOUND and did not accept an invalid input: " + testDataValidationNameArray[i] : "Email Address error NOT FOUND and accepted an invalid input: " + testDataValidationNameArray[i]
+                );
+            } catch (NoSuchElementException e) {
+                test.log(Status.FAIL, "Email Address error NOT FOUND and accepted an invalid input: " + testDataValidationNameArray[i]);
+            }
+
+            // Reload Transaction Details page (all inputs will automatically be cleared out)
+            driver.get(URL_EPL);
+        }
         
     } */
 
+    /* @Test (priority = 11)    // OK
+    public void TLPEAPI_OPP_11() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_11 - Validation testing on the Mobile Number field by forcing invalid values");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // Test Data (correct): renmar.lescano@altpaynet.com
+        String[] testDataArray = {"945517", "aasdfASDSD", "!@#$%^&*(){}[]'',.<>/?;:"};
+        String[] testDataCharacterNameArray = {"Fewer digits than required", "Alphabetic characters", "Special characters"};
+
+        // Call this function to check if the Transaction Details page is accessible
+        transactionDetailsPageAccessibility(test);
+
+        // Check if the Mobile Number field is visible
+        test.log(
+            elements.mobileNumber.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.mobileNumber.isDisplayed() ? "Mobile Number field is visible" : "Mobile Number field is not visible"
+        );
+
+        // Actual Test
+        for (int i = 0; i < testDataArray.length; i++) {
+
+            // Call this function to input all correct values on the Transaction Details page
+            transactionDetailsPageHappyPath();
+            elements.mobileNumber.clear();
+
+            // Actual Test
+            elements.mobileNumber.sendKeys(testDataArray[i]);
+            elements.nextBtn.click();
+
+            // Check if error message is shown
+            try {
+                test.log(
+                    elements.mobileNumberError.isDisplayed() ? Status.PASS : Status.FAIL,
+                    elements.mobileNumberError.isDisplayed() ? "Mobile Number error FOUND and did not accept an invalid input: " + testDataCharacterNameArray[i] : "Mobile Number error NOT FOUND and accepted an invalid input: " + testDataCharacterNameArray[i]
+                );
+            } catch (NoSuchElementException e) {
+                test.log(Status.FAIL, "Mobile Number error NOT FOUND and accepted an invalid input: " + testDataCharacterNameArray[i]);
+            }
+
+            // Reload Transaction Details page (all inputs will automatically be cleared out)
+            driver.get(URL_EPL);
+        }
+        
+    } */
+
+    /* @Test (priority = 12)    // OK
+    public void TLPEAPI_OPP_12() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_12 - Validation testing on the Address Line 1 and 2 fields");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // String array for test data of alphabetic, numeric, and special characters
+        String[] testDataArray = {"askdjaAKJSDN", "012345", "!@#$%^&*(){}[]'',.<>/?;:"};
+        String[] testDataCharacterTypeArray = {"Alphabetic characters", "Numeric characters", "Special characters"};
+
+        // Call this function to check if the Transaction Details page is accessible
+        transactionDetailsPageAccessibility(test);
+
+        // Actual Test
+        for (int i = 0; i < testDataArray.length; i++) {
+
+            // Call this function to input all correct values on the Transaction Details page
+            transactionDetailsPageHappyPath();
+            elements.addressLine1.clear();
+            elements.addressLine2.clear();
+
+            elements.addressLine1.sendKeys(testDataArray[i]);
+            elements.addressLine2.sendKeys(testDataArray[i]);
+            elements.nextBtn.click();
+
+            // Check if redirection to Confirm Payment page is successful, meaning the test data was accepted
+            test.log(
+                elements.cardNumber.isDisplayed() ? Status.PASS : Status.FAIL,
+                elements.cardNumber.isDisplayed() ? "Address Line 1 field accepted " + testDataCharacterTypeArray[i] : "Address Line 1 field did not accept " + testDataCharacterTypeArray[i]
+            );
+            test.log(
+                elements.cardNumber.isDisplayed() ? Status.PASS : Status.FAIL,
+                elements.cardNumber.isDisplayed() ? "Address Line 2 field accepted " + testDataCharacterTypeArray[i] : "Address Line 2 field did not accept " + testDataCharacterTypeArray[i]
+            );
+
+            // Reload Transaction Details page (all inputs will automatically be cleared out)
+            driver.get(URL_EPL);
+        }
+        
+    } */
+
+    /* @Test (priority = 13)    // TO BE TESTED
+    public void TLPEAPI_OPP_13() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_13 - Validation testing on the City/Municipality/Locality field");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // String array for test data of alphabetic, numeric, and special characters
+        String[] testDataArray = {"askdjaAKJSDN", "012345", "!@#$%^&*(){}[]'',.<>/?;:"};
+        String[] testDataCharacterTypeArray = {"Alphabetic characters", "Numeric characters", "Special characters"};
+
+        // Call this function to check if the Transaction Details page is accessible
+        transactionDetailsPageAccessibility(test);
+
+        // Check if City/Municipality/Locality field is visible
+        test.log(
+            elements.cityMunicipalityLocality.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.cityMunicipalityLocality.isDisplayed() ? "City/Municipality/Locality field is visible accepted " : "City/Municipality/Locality field is not visible "
+        );
+
+        // Actual Test
+        for (int i = 0; i < testDataArray.length; i++) {
+
+            // Call this function to input all correct values on the Transaction Details page
+            transactionDetailsPageHappyPath();
+            elements.cityMunicipalityLocality.clear();
+
+            elements.cityMunicipalityLocality.sendKeys(testDataArray[i]);
+            elements.nextBtn.click();
+
+            // Check if redirection to Confirm Payment page is successful, meaning the test data was accepted
+            if (i == 2) {
+                test.log(
+                    elements.cardNumber.isDisplayed() ? Status.FAIL : Status.PASS,
+                    elements.cardNumber.isDisplayed() ? "City/Municipality/Locality field accepted " + testDataCharacterTypeArray[i] : "City/Municipality/Locality field did not accept " + testDataCharacterTypeArray[i]
+                );
+            }
+            else {
+                test.log(
+                    elements.cardNumber.isDisplayed() ? Status.PASS : Status.FAIL,
+                    elements.cardNumber.isDisplayed() ? "City/Municipality/Locality field accepted " + testDataCharacterTypeArray[i] : "City/Municipality/Locality field did not accept " + testDataCharacterTypeArray[i]
+                );
+            }
+
+            // Reload Transaction Details page (all inputs will automatically be cleared out)
+            driver.get(URL_EPL);
+        }
+    } */
+
+    /* @Test (priority = 14)    // TO BE TESTED
+    public void TLPEAPI_OPP_14() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_14 - Testing inputs on the ZIP Code field");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // String array for test data of alphabetic, numeric, and special characters
+        String[] testDataArray = {"askdjaAKJSDN", "012345"};
+        String[] testDataCharacterTypeArray = {"Alphabetic characters", "Numeric characters"};
+
+        // Call this function to check if the Transaction Details page is accessible
+        transactionDetailsPageAccessibility(test);
+
+        // Check if State/Province/Region field is visible
+        test.log(
+            elements.zipCode.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.zipCode.isDisplayed() ? "ZIP Code field is visible" : "ZIP Code field is not visible"
+        );
+        
+        // Actual Test
+        for (int i = 0; i < testDataArray.length; i++) {
+
+            // Call this function to input all correct values on the Transaction Details page
+            transactionDetailsPageHappyPath();
+            elements.zipCode.clear();
+
+            elements.zipCode.sendKeys(testDataArray[i]);
+            elements.nextBtn.click();
+
+            // Check if redirection to Confirm Payment page is successful, meaning the test data was accepted
+            test.log(
+                elements.cardNumber.isDisplayed() ? Status.PASS : Status.FAIL,
+                elements.cardNumber.isDisplayed() ? "ZIP Code field accepted " + testDataCharacterTypeArray[i] : "ZIP Code field did not accept " + testDataCharacterTypeArray[i]
+            );
+            
+            // Reload Transaction Details page (all inputs will automatically be cleared out)
+            driver.get(URL_EPL);
+        }
+    } */
+
+    /* @Test (priority = 15)    // TO BE TESTED
+    public void TLPEAPI_OPP_15() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_15 - Validation testing on the State/Province/Region field");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // String array for test data of alphabetic, numeric, and special characters
+        String[] testDataArray = {"askdjaAKJSDN", "012345", "!@#$%^&*(){}[]'',.<>/?;:"};
+        String[] testDataCharacterTypeArray = {"Alphabetic characters", "Numeric characters", "Special characters"};
+
+        // Call this function to check if the Transaction Details page is accessible
+        transactionDetailsPageAccessibility(test);
+
+        // Check if State/Province/Region field is visible
+        test.log(
+            elements.stateProvinceRegion.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.stateProvinceRegion.isDisplayed() ? "State/Province/Region field is visible" : "State/Province/Region field is not visible"
+        );
+
+        // Actual Test
+        for (int i = 0; i < testDataArray.length; i++) {
+
+            // Call this function to input all correct values on the Transaction Details page
+            transactionDetailsPageHappyPath();
+            elements.stateProvinceRegion.clear();
+
+            elements.stateProvinceRegion.sendKeys(testDataArray[i]);
+            elements.nextBtn.click();
+
+            // Check if redirection to Confirm Payment page is successful, meaning the test data was accepted
+            if (i == 2) {
+                test.log(
+                    elements.cardNumber.isDisplayed() ? Status.FAIL : Status.PASS,
+                    elements.cardNumber.isDisplayed() ? "State/Province/Region field accepted " + testDataCharacterTypeArray[i] : "State/Province/Region field did not accept " + testDataCharacterTypeArray[i]
+                );
+            }
+            else {
+                test.log(
+                    elements.cardNumber.isDisplayed() ? Status.PASS : Status.FAIL,
+                    elements.cardNumber.isDisplayed() ? "State/Province/Region field accepted " + testDataCharacterTypeArray[i] : "State/Province/Region field did not accept " + testDataCharacterTypeArray[i]
+                );
+            }
+
+            // Reload Transaction Details page (all inputs will automatically be cleared out)
+            driver.get(URL_EPL);
+        }
+    } */
+
+    /* @Test (priority = 16)    // TO BE TESTED
+    public void TLPEAPI_OPP_16() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_16 - Validation testing on the Card Number field by forcing invalid values");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // String array for test data of alphabetic, numeric, and special characters
+        String[] testDataArray = {"012345", "askdjaAKJSDN", "!@#$%^&*(){}[]'',.<>/?;:"};
+        String[] testDataCharacterTypeArray = {"fewer digits than required", "Alphabetic characters", "Special characters"};
+
+        // Call this function to input all correct values in the Transaction Details page
+        transactionDetailsPageHappyPath();
+        elements.nextBtn.click();
+
+        // Check if Confirm Payment page is accessible
+        confirmPaymentPageAccessibility(test);
+
+        // Check if Card Number field is visible
+        test.log(
+            elements.cardNumber.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.cardNumber.isDisplayed() ? "Card Number field is visible" : "Card Number field is not visible"
+        );
+
+        // Actual Test
+        for (int i = 0; i < testDataArray.length; i++) {
+
+            // Call this function to input all correct values in the Confirm Payment page
+            confirmPaymentPageHappyPath();
+            elements.cardNumber.clear();
+
+            elements.cardNumber.sendKeys(testDataArray[i]);
+            elements.submitPaymentBtn.click();
+
+            // Check if redirection to the 3DS Simulator page is successful, meaning the test data was accepted
+            test.log(
+                elements.authenticationDropdown.isDisplayed() ? Status.PASS : Status.FAIL,
+                elements.authenticationDropdown.isDisplayed() ? "Card Number field accepted " + testDataCharacterTypeArray[i] : "Card Number field did not accept " + testDataCharacterTypeArray[i]
+            );
+        }
+    } */
+
+    /* @Test (priority = 17)    // TO BE TESTED
+    public void TLPEAPI_OPP_17() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_17 - Testing input on the Cardholder Name");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // String array for test data of alphabetic, numeric, and special characters
+        String testData = "asdasdASDASDDAS";
+        String testDataCharacterType = "Alphabetic characters";
+
+        // Call this function to input all correct values in the Transaction Details page
+        transactionDetailsPageHappyPath();
+        elements.nextBtn.click();
+
+        // Check if Confirm Payment page is accessible
+        confirmPaymentPageAccessibility(test);
+
+        // Check if Cardholder Name field is visible
+        test.log(
+            elements.cardholderName.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.cardholderName.isDisplayed() ? "Cardholder Name field is visible" : "Cardholder Name field is not visible"
+        );
+
+        // Actual Test
+        elements.cardholderName.sendKeys(testData);
+
+        // Check if redirection to the 3DS Simulator page is successful, meaning the test data was accepted
+        test.log(
+            elements.authenticationDropdown.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.authenticationDropdown.isDisplayed() ? "Cardholder Name field accepted " + testDataCharacterType : "Cardholder Name field did not accept " + testDataCharacterType
+        );
+    } */
+
+    /* @Test (priority = 18)    // TO BE TESTED
+    public void TLPEAPI_OPP_18() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_18 - Validation testing on the Expiry Date field by forcing invalid values");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // String array for test data of alphabetic, numeric, and special characters
+        String[] testDataArray = {"12", "asDN", "!@#$"};
+        String[] testDataCharacterTypeArray = {"fewer digits than required", "Alphabetic characters", "Special characters"};
+
+        // Call this function to input all correct values in the Transaction Details page
+        transactionDetailsPageHappyPath();
+        elements.nextBtn.click();
+
+        // Check if Confirm Payment page is accessible
+        confirmPaymentPageAccessibility(test);
+
+        // Check if Expiry Date field is visible
+        test.log(
+            elements.expiryDate.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.expiryDate.isDisplayed() ? "Expiry Date field is visible" : "Expiry Date field is not visible"
+        );
+
+        // Actual Test
+        for (int i = 0; i < testDataArray.length; i++) {
+
+            // Call this function to input all correct values in the Confirm Payment page
+            confirmPaymentPageHappyPath();
+            elements.expiryDate.clear();
+
+            elements.expiryDate.sendKeys(testDataArray[i]);
+            elements.submitPaymentBtn.click();
+
+            // Check if redirection to the 3DS Simulator page is successful, meaning the test data was accepted
+            test.log(
+                elements.authenticationDropdown.isDisplayed() ? Status.FAIL : Status.PASS,
+                elements.authenticationDropdown.isDisplayed() ? "Card Number field accepted " + testDataCharacterTypeArray[i] : "Card Number field did not accept " + testDataCharacterTypeArray[i]
+            );
+        }
+
+        // Testing for a date that is earlier than the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Calculate a date that is lesser than the current date
+        LocalDate lesserDate = currentDate.minusDays(10);
+
+        // Format the dates as MM/YY
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+        String currentDateFormatted = currentDate.format(formatter);
+        String lesserDateFormatted = lesserDate.format(formatter);
+
+        // Enter the lesser date into the Expiry Date field
+        elements.expiryDate.sendKeys(lesserDateFormatted);
+
+        elements.submitPaymentBtn.click();
+
+        // Check if redirection to the 3DS Simulator page is successful, meaning the test data was accepted
+        test.log(
+            elements.authenticationDropdown.isDisplayed() ? Status.FAIL : Status.PASS,
+            elements.authenticationDropdown.isDisplayed() ? "Card Number field accepted an invalid value: Date before the current date"  : "Card Number field did not accept an invalid value: Date before the current date"
+        );
+    } */
+
+    /* @Test (priority = 19)    // TO BE TESTED
+    public void TLPEAPI_OPP_19() {
+        driver.get(URL_EPL);
+
+        ExtentTest test = extent.createTest("TLPEAPI_OPP_19 - Validation testing on the CVV field");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        // String array for test data of alphabetic, numeric, and special characters
+        String[] testDataArray = {"12", "asD", "!@#"};
+        String[] testDataCharacterTypeArray = {"fewer digits than required", "Alphabetic characters", "Special characters"};
+
+        // Call this function to input all correct values in the Transaction Details page
+        transactionDetailsPageHappyPath();
+        elements.nextBtn.click();
+
+        // Check if Confirm Payment page is accessible
+        confirmPaymentPageAccessibility(test);
+
+        // Check if CVV field is visible
+        test.log(
+            elements.CVV.isDisplayed() ? Status.PASS : Status.FAIL,
+            elements.CVV.isDisplayed() ? "CVV field is visible" : "CVV field is not visible"
+        );
+
+        // Actual Test
+        for (int i = 0; i < testDataArray.length; i++) {
+
+            // Call this function to input all correct values in the Confirm Payment page
+            confirmPaymentPageHappyPath();
+            elements.CVV.clear();
+
+            elements.CVV.sendKeys(testDataArray[i]);
+            elements.submitPaymentBtn.click();
+
+            // Check if redirection to the 3DS Simulator page is successful, meaning the test data was accepted
+            test.log(
+                elements.authenticationDropdown.isDisplayed() ? Status.FAIL : Status.PASS,
+                elements.authenticationDropdown.isDisplayed() ? "Card Number field accepted " + testDataCharacterTypeArray[i] : "Card Number field did not accept " + testDataCharacterTypeArray[i]
+            );
+        }
+
+    } */
+
     // Error Tests
-    /* @Test (priority = 21)    // UNFINISHED
+    /* @Test (priority = 20)    // TO BE TESTED
     public void TLPEAPI_OPP_22() {
         driver.get(URL_EPL);
 
@@ -542,7 +1008,7 @@ public class EPL {
         elements.nextBtn.click();
     } */
 
-    /* @Test (priority = 22)   // OK
+    /* @Test (priority = 21)    // OK
     public void TLPEAPI_OPP_23() {
         driver.get(URL_EPL);
 
@@ -584,7 +1050,7 @@ public class EPL {
 
     } */
 
-    /* @Test (priority = 23)   // OK
+    /* @Test (priority = 22)    // OK
     public void TLPEAPI_OPP_24() {
         driver.get(URL_EPL);
 
@@ -613,7 +1079,7 @@ public class EPL {
 
     } */
 
-    /* @Test (priority = 24)    // OK
+    /* @Test (priority = 23)    // OK
     public void TLPEAPI_OPP_25() {
         driver.get(URL_EPL);
 
@@ -655,7 +1121,7 @@ public class EPL {
 
     } */
 
-    /* @Test (priority = 25)   // OK
+    /* @Test (priority = 24)    // OK
     public void TLPEAPI_OPP_26() {
         driver.get(URL_EPL);
 
@@ -693,7 +1159,7 @@ public class EPL {
 
     } */
 
-    /* @Test (priority = 26)   // OK
+    /* @Test (priority = 25)    // OK
     public void TLPEAPI_OPP_27() {
         driver.get(URL_EPL);
 
@@ -722,7 +1188,7 @@ public class EPL {
         );
     } */
 
-    /* @Test (priority = 27)   // OK
+    /* @Test (priority = 26)    // OK
     public void TLPEAPI_OPP_28() {
         driver.get(URL_EPL);
 

@@ -202,7 +202,7 @@ public class EPLElements {
     public WebElement visaBtn;
     String visaBtnElementName = "VISA button";
 
-    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/div[2]")
+    @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/div[3]")
     public WebElement mobileNumberCountryCode;
     String mobileNumberCountryCodeElementName = "Mobile Number Country Code dropdown";
 
