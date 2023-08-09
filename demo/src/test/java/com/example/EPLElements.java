@@ -1,14 +1,12 @@
 package com.example;
 
-import org.openqa.selenium.By;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
-import java.util.ArrayList;
 
 public class EPLElements {
 
@@ -72,6 +70,8 @@ public class EPLElements {
         confirmPaymentPageWebElementNames.add(expiryDateElementName);
         confirmPaymentPageWebElementNames.add(CVVElementName);
         confirmPaymentPageWebElementNames.add(submitPaymentBtnElementName);
+
+        confirmPaymentPageWebElements.add(proceedToPaymentBtn); // GCash
         
 
         // Errors
@@ -89,8 +89,25 @@ public class EPLElements {
         errorNames.add(firstNameErrorName);
         errorNames.add(lastNameErrorName);
         errorNames.add(emailAddressErrorName);
-        errorNames.add(mobileNumberErrorName);        
+        errorNames.add(mobileNumberErrorName);
+
+
+        // GCash Authentication Code fields
+        gcashAuthenticationCodeList.add(gcashAuthenticationCode1);
+        gcashAuthenticationCodeList.add(gcashAuthenticationCode2);
+        gcashAuthenticationCodeList.add(gcashAuthenticationCode3);
+        gcashAuthenticationCodeList.add(gcashAuthenticationCode4);
+        gcashAuthenticationCodeList.add(gcashAuthenticationCode5);
+        gcashAuthenticationCodeList.add(gcashAuthenticationCode6);
+
+        // GCash MPIN fields
+        gcashMPINList.add(MPIN1);
+        gcashMPINList.add(MPIN2);
+        gcashMPINList.add(MPIN3);
+        gcashMPINList.add(MPIN4);
+        
     }
+
 
     // List of objects
     List<WebElement> transactionPageWebElements = new ArrayList<>();
@@ -102,7 +119,10 @@ public class EPLElements {
     List<WebElement> errorList = new ArrayList<>();
     List<String> errorNames = new ArrayList<>();
 
-//body/span[1]/span[1]/span[1]/input[1]"}
+    List<WebElement> gcashAuthenticationCodeList = new ArrayList<>();
+    List<WebElement> gcashMPINList = new ArrayList<>();
+
+
     // Text fields
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/input[1]")
     public WebElement amount;
@@ -248,5 +268,72 @@ public class EPLElements {
     // Information Elements
     @FindBy(xpath = "//body/div[1]/div[1]/div[1]/div[2]/div[3]")
     public WebElement paymentResult;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/div[1]/div[2]/img[1]")
+    public WebElement gcashConfirmPayment;
+
+
+    // GCash Elements
+    @FindBy(xpath = "//body/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/input[1]")
+    public WebElement gcashMobileNumberField;
+    String gcashMobileNumberFieldName = "GCash Mobile Number field";
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[2]/div[1]/div[3]/div[1]/div[1]/div[2]/button[1]")
+    public WebElement eWalletOptionBtn;
+    String eWalletOptionBtnName = "e-Wallet button";
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[2]/div[2]/div[1]/div[4]/div[1]/div[2]/div[1]/div[2]/button[1]")
+    public WebElement gcashBtn;
+    String gcashBtnName = "GCash button";
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[2]/div[1]/a[1]")
+    public WebElement proceedToPaymentBtn;
+    String proceedToPaymentBtnName = "Proceed to Payment button";
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/footer[1]/div[1]/button[1]")
+    public WebElement gcashLoginNextBtn;
+    String gcashLoginNextBtnName = "Login - Next button";
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]/button[1]")
+    public WebElement gcashAuthenticationNextBtn;
+    String gcashAuthenticationNextBtnName = "Authentication Code - Next button";
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/footer[1]/div[1]/button[1]")
+    public WebElement gcashMPINNextBtn;
+    String gcashMPINNextBtnName = "MPIN - Next button";
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/footer[1]/div[1]/button[1]")
+    public WebElement gcashPayBtn;
+    String gcashPayBtnName = "Pay button";
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]")
+    public WebElement gcashAuthenticationCode1;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[2]")
+    public WebElement gcashAuthenticationCode2;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]")
+    public WebElement gcashAuthenticationCode3;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[4]")
+    public WebElement gcashAuthenticationCode4;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[5]")
+    public WebElement gcashAuthenticationCode5;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[6]")
+    public WebElement gcashAuthenticationCode6;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]")
+    public WebElement MPIN1;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]")
+    public WebElement MPIN2;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]")
+    public WebElement MPIN3;
+
+    @FindBy(xpath = "//body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]")
+    public WebElement MPIN4;
     
 }
