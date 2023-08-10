@@ -71,7 +71,7 @@ public class EPLElements {
         confirmPaymentPageWebElementNames.add(CVVElementName);
         confirmPaymentPageWebElementNames.add(submitPaymentBtnElementName);
 
-        confirmPaymentPageWebElements.add(proceedToPaymentBtn); // GCash
+        // confirmPaymentPageWebElements.add(proceedToPaymentBtn); // GCash
         
 
         // Errors
@@ -263,6 +263,18 @@ public class EPLElements {
     @FindBy(xpath = "//label[@id='customer.contact.mobile-error']")
     public WebElement mobileNumberError;
     String mobileNumberErrorName = "Mobile Number field";
+
+    @FindBy(xpath = "//label[@id='customer.billingAddress.zip-error']")
+    public WebElement zipCodeError;
+    String zipCodeErrorName = "ZIP Code field";
+
+    @FindBy(xpath = "//span[contains(text(),'Enter a valid 12 to 16 digit card number')]")
+    public WebElement cardNumberError;
+    String cardNumberErrorName = "Card Number field";
+
+    @FindBy(xpath = "//span[contains(text(),'Enter a valid expiration date')]")
+    public WebElement expiryDateError;
+    String expiryDateErrorName = "Expiry Date field";
 
 
     // Information Elements
